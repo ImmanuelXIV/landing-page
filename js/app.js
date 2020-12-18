@@ -34,6 +34,15 @@
 */
 
 // build the nav
+const sections = document.querySelectorAll('section');
+const navList = document.querySelector('#navbar__list');
+
+for (let section of sections) {
+    const listItem = document.createElement('li');
+    listItem.textContent = section.dataset.nav;
+    navList.appendChild(listItem);
+}
+
 
 
 // Add class 'active' to section when near top of viewport
