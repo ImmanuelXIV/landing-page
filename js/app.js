@@ -34,6 +34,7 @@
 */
 
 // build the nav
+// put in function?
 const sections = document.querySelectorAll('section');
 const navList = document.querySelector('#navbar__list');
 
