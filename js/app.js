@@ -105,7 +105,7 @@ navi.addEventListener('click', function(event) {
     // trim whitespace
     let id = event.target.textContent.toLowerCase().replace(/\s+/g, '');
     document.getElementById(id).scrollIntoView({
-        behaviour: "smooth"
+        behaviour: "smooth" //somehow smooth is not working
     });
 });
 
