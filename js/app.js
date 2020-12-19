@@ -99,6 +99,15 @@ window.onscroll = function() {
 */
 
 // Scroll to anchor ID using scrollTO event
+const navi = document.querySelector('#navbar__list');
+navi.addEventListener('click', function(event) {
+    //event.preventDefault();
+    // trim whitespace
+    let id = event.target.textContent.toLowerCase().replace(/\s+/g, '');
+    document.getElementById(id).scrollIntoView({
+        behaviour: "smooth"
+    });
+});
 
 
 /**
