@@ -17,7 +17,8 @@
  * Define Global Variables
  * 
 */
-
+const sections = document.querySelectorAll('section');
+const fragment = document.createDocumentFragment();
 
 /**
  * End Global Variables
@@ -34,19 +35,18 @@
 */
 
 // build the nav
-const sections = document.querySelectorAll('section');
-const fragment = document.createDocumentFragment();
-
-for (let section of sections) {
-    const listItem = document.createElement('li');
-    listItem.textContent = section.dataset.nav;
-    listItem.classList.add('menu__link');
-    listItem.classList.add('.menu__link:hover');
-    fragment.appendChild(listItem);
+function buildNav() {
+    for (let section of sections) {
+        const listItem = document.createElement('li');
+        listItem.textContent = section.dataset.nav;
+        listItem.classList.add('menu__link');
+        listItem.classList.add('.menu__link:hover');
+        fragment.appendChild(listItem);
+    }
+    document.querySelector('#navbar__list').appendChild(fragment);
 }
 
-document.querySelector('#navbar__list').appendChild(fragment);
-
+buildNav();
 
 // Add class 'active' to section when near top of viewport
 function distanceBottomToTop(elem) {
@@ -66,10 +66,10 @@ function toggleActiveSection() {
         distances.push(distanceBottomToTop(section));
     }
 
-    //console.log(...distances);
-
     // get index of smalles positive distance 
     let idx = distances.indexOf(Math.min(...distances));
+
+    //console.log(...distances, idx);
     
     for (let i = 0; i < sections.length; i++) {
         if (i == idx) {
@@ -79,14 +79,25 @@ function toggleActiveSection() {
             }
         }
         else {
-            if (sections[i].classList.contains('classactive-')) {
-                sections[idx].classList.remove('active-class');
+            if (sections[i].classList.contains('active-class')) {
+                sections[i].classList.remove('active-class');
             }
         }
-    }    
+    }
+    distances = [];   
 }
 
-window.onscroll = toggleActiveSection();
+document.addEventListener('scroll', function(){
+    toggleActiveSection();
+});
+
+/*
+// Alternative
+window.onscroll = function() {
+    toggleActiveSection();
+};
+*/
+
 // Scroll to anchor ID using scrollTO event
 
 
