@@ -8,6 +8,17 @@
   <!-- Load Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Fira+Sans:900|Merriweather&display=swap" rel="stylesheet">  <!-- Load Styles -->
   <link href="css/styles.css" rel="stylesheet">
+  
+  <!-- Alternative: add app.js script here: DOMContentLoaded: 65ms | Load: 162ms -->
+  <!--
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const script = document.createElement('script');
+      script.src="js/app.js";
+      document.head.appendChild(script);
+    });
+  </script>
+  -->
 </head>
 <body>
   <!-- HTML Follows BEM naming conventions 
@@ -62,6 +73,6 @@
   <footer class="page__footer">
     <p>&copy Udacity</p>
   </footer>
-  <script src="js/app.js"></script>
+  <script src="js/app.js"></script> <!-- DOMContentLoaded: 58ms | Load: 95ms -->
 </body>
 </html>
