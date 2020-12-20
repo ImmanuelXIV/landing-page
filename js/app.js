@@ -1,9 +1,10 @@
 /**
  * 
- * Manipulating the DOM exercise.
- * Exercise programmatically builds navigation,
+ * Manipulating the DOM.
+ * Programmatically building navigation,
  * scrolls to anchors from navigation,
- * and highlights section in viewport upon scrolling.
+ * and highlights section in viewport 
+ * upon scrolling.
  * 
  * Dependencies: None
  * 
@@ -13,29 +14,10 @@
  * 
 */
 
-/**
- * Define Global Variables
- * 
-*/
-const sections = document.querySelectorAll('section');
-const fragment = document.createDocumentFragment();
-
-/**
- * End Global Variables
- * Start Helper Functions
- * 
-*/
-
-
-
-/**
- * End Helper Functions
- * Begin Main Functions
- * 
-*/
-
-// build the nav
+// Build menu
 function buildNav() {
+    const sections = document.querySelectorAll('section');
+    const fragment = document.createDocumentFragment();
     for (let section of sections) {
         const listItem = document.createElement('li');
         listItem.textContent = section.dataset.nav;
@@ -48,19 +30,20 @@ function buildNav() {
 
 buildNav();
 
-// Add class 'active' to section when near top of viewport
+// Set sections as active
 function distanceBottomToTop(elem) {
     let distance = elem.getBoundingClientRect().bottom;
     if (distance >= 0) {
         return distance;
     }
     else {
-        // if distance is negative return very large positive number
+        // if distance is negative return very large number
         return Infinity;
     }
 }
 
 function toggleActiveSection() {
+    const sections = document.querySelectorAll('section');
     let distances = [];
     for (let section of sections) {
         distances.push(distanceBottomToTop(section));
@@ -68,8 +51,6 @@ function toggleActiveSection() {
 
     // get index of smalles positive distance 
     let idx = distances.indexOf(Math.min(...distances));
-
-    //console.log(...distances, idx);
     
     for (let i = 0; i < sections.length; i++) {
         if (i == idx) {
@@ -98,28 +79,12 @@ window.onscroll = function() {
 };
 */
 
-// Scroll to anchor ID using scrollTO event
+// Scroll to section on link click
 const navi = document.querySelector('#navbar__list');
 navi.addEventListener('click', function(event) {
-    //event.preventDefault();
-    // trim whitespace
     let id = event.target.textContent.toLowerCase().replace(/\s+/g, '');
     document.getElementById(id).scrollIntoView({
-        behaviour: "smooth" //somehow smooth is not working
+        behaviour: "smooth"
     });
 });
-
-
-/**
- * End Main Functions
- * Begin Events
- * 
-*/
-
-// Build menu 
-
-// Scroll to section on link click
-
-// Set sections as active
-
 
