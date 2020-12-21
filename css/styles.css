@@ -79,18 +79,22 @@ section {
     display: inline-block;
 }
 
+.navbar__menu a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.navbar__menu .active {
+    color:#F38A8A;
+    border-bottom:3px solid #F38A8A;
+}
+
 .navbar__menu .menu__link {
     display: block;
     padding: 1em;
     font-weight: bold;
     text-decoration: none;
     color: white;
-}
-
-.navbar__menu .menu__link:hover {
-    background: pink;
-    color: #fff;
-    transition: ease 0.3s all;
 }
 
 /* Header Styles */

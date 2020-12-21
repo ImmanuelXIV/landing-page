@@ -20,7 +20,10 @@ function buildNav() {
     const fragment = document.createDocumentFragment();
     for (let section of sections) {
         const listItem = document.createElement('li');
-        listItem.textContent = section.dataset.nav;
+        const aItem = document.createElement('a');
+        aItem.href = "#" + section.dataset.nav.toLowerCase().replace(/\s+/g, '');
+        aItem.textContent = section.dataset.nav;
+        listItem.appendChild(aItem);
         listItem.classList.add('menu__link');
         listItem.classList.add('.menu__link:hover');
         fragment.appendChild(listItem);
@@ -80,11 +83,52 @@ window.onscroll = function() {
 */
 
 // Scroll to section on link click
-const navi = document.querySelector('#navbar__list');
-navi.addEventListener('click', function(event) {
-    let id = event.target.textContent.toLowerCase().replace(/\s+/g, '');
-    document.getElementById(id).scrollIntoView({
-        behaviour: "smooth"
-    });
+// Highlight active menu item on scroll
+// code taken from: https://codepen.io/joxmar/pen/NqqMEg
+
+// Cache selectors
+let lastId;
+const topMenu = $("#navbar__list");
+const topMenuHeight = topMenu.outerHeight()+1;
+// All list items
+const menuItems = topMenu.find("a");
+// Anchors corresponding to menu items
+const scrollItems = menuItems.map(function(){
+   var item = $($(this).attr("href"));
+    if (item.length) { return item; }
 });
 
+// Bind click handler to menu items
+// so we can get a fancy scroll animation
+menuItems.click(function(e){
+    const href = $(this).attr("href");
+    const offsetTop = href === "#" ? 0 : $(href).offset().top-topMenuHeight+1;
+    $('html, body').stop().animate({
+        scrollTop: offsetTop
+    }, 850);
+    e.preventDefault();
+});
+
+// Bind to scroll
+$(window).scroll(function(){
+    // Get container scroll position
+    const fromTop = $(this).scrollTop()+topMenuHeight;
+    
+    // Get id of current scroll item
+    let cur = scrollItems.map(function(){
+        if ($(this).offset().top < fromTop)
+        return this;
+    });
+    
+    // Get the id of the current element
+    cur = cur[cur.length-1];
+    const id = cur && cur.length ? cur[0].id : "";
+    
+    if (lastId !== id) {
+        lastId = id;
+        // Set/remove active class
+        menuItems
+        .parent().removeClass("active")
+        .end().filter("[href=#"+id+"]").parent().addClass("active");
+    }
+});
