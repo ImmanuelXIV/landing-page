@@ -22,7 +22,8 @@ function buildNav() {
         const listItem = document.createElement('li');
         const aItem = document.createElement('a');
         aItem.href = "#" + section.dataset.nav.toLowerCase().replace(/\s+/g, '');
-        aItem.textContent = section.dataset.nav;
+        aItem.textContent = section.dataset.nav.slice(0,3) + " " + section.dataset.nav.slice(-1);
+
         listItem.appendChild(aItem);
         listItem.classList.add('menu__link');
         listItem.classList.add('.menu__link:hover');
