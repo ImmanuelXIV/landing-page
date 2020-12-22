@@ -24,9 +24,7 @@ function buildNav() {
     for (let section of sections) {
         const listItem = document.createElement('li');
         const aItem = document.createElement('a');
-        aItem.href = "#" + section.dataset.nav.toLowerCase().replace(/\s+/g, '');
-        aItem.textContent = section.dataset.nav.slice(0,3) + " " + section.dataset.nav.slice(-1);
-
+        aItem.textContent = section.dataset.nav;
         listItem.appendChild(aItem);
         listItem.classList.add('menu__link');
         listItem.classList.add('.menu__link:hover');
@@ -39,6 +37,18 @@ function buildNav() {
 }
 
 buildNav();
+
+// Scroll when click on menu item
+function scrollNavigation() {
+    const naviBar = document.querySelector('#navbar__list');
+    naviBar.addEventListener('click', function(event) {
+        event.preventDefault();
+        let id = event.target.textContent.toLowerCase().replace(/\s+/g, '');
+        document.getElementById(id).scrollIntoView({behavior: "smooth"});
+    } )
+}
+
+scrollNavigation();
 
 // Set <sections> as active as well as corresponding menu item
 function distanceBottomToTop(elem) {
